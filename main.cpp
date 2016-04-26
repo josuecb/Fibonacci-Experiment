@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <ctime>
+#include "CurrentTime.h"
 
 using namespace std;
 
@@ -8,12 +10,17 @@ unsigned long long int iterativeFibonacci(unsigned int);
 
 unsigned long long int recursiveFibonacci(unsigned int);
 
-unsigned long long int problem4_1();
+vector<string> calculateTimeForEachFunction(bool, CurrentTime *);
 
 int main() {
-    cout << "Hello, World!" << endl;
-    cout << iterativeFibonacci(1000) << endl;
-    problem4_1();
+    CurrentTime *startTime = new CurrentTime();
+    double millisecond = startTime->getMilliseconds();
+    cout << "Welcome to my Fibonacci Program Experiment!" << endl;
+
+    cout << to_string(startTime->getCurrentTime()) + " and " + to_string(millisecond) << endl;
+//    Sleep(3000);
+    calculateTimeForEachFunction(true, startTime);
+
     return 0;
 }
 
@@ -34,20 +41,31 @@ unsigned long long int iterativeFibonacci(unsigned int nth_fibonacci_index) {
 unsigned long long int recursiveFibonacci(unsigned int nth_fibonacci_index) {
     if (nth_fibonacci_index == 0) return 0;
     else if (nth_fibonacci_index == 1) return 1;
-    else {
-        unsigned long long int val =
-                recursiveFibonacci(nth_fibonacci_index - 1) + recursiveFibonacci(nth_fibonacci_index - 2);
-        cout << to_string(val) + " " + to_string(nth_fibonacci_index) << endl;
-        return val;
-    }
+    else return recursiveFibonacci(nth_fibonacci_index - 1) + recursiveFibonacci(nth_fibonacci_index - 2);
 }
 
-unsigned long long int problem4_1() {
+vector<string> calculateTimeForEachFunction(bool isIterative, CurrentTime *startTime) {
+    vector<string> timeElapsedTime;
     vector<unsigned int> findValues = {100, 500, 1000};
 
     for (int i = 0; i < findValues.size(); ++i) {
-        cout << findValues.size() << endl;
-    }
+        if (isIterative) {
+            cout << "Fibonacci(" + to_string(findValues[i]) + ") = " + to_string(iterativeFibonacci(findValues[i])) <<
+            endl;
+//            cout << to_string(endingTime->getTimeElapsed(*startTime)) + " and " + to_string(endingTime->getMilliseconds()) << endl;
+            CurrentTime *endingTime = new CurrentTime();
+            timeElapsedTime.push_back(to_string(endingTime->getTimeElapsed(*startTime)));
+            cout << "Time elapsed = " + timeElapsedTime[i] << endl;
+        }
+        else {
+            cout << "Fibonacci(" + to_string(findValues[i]) + ") = " + to_string(recursiveFibonacci(findValues[i])) <<
+            endl;
+            CurrentTime *endingTime = new CurrentTime();
+//            cout << to_string(endingTime->getTimeElapsed(*startTime)) + " and " + to_string(endingTime->getMilliseconds()) << endl;
+            timeElapsedTime.push_back(to_string(endingTime->getTimeElapsed(*startTime)));
+            cout << "Time elapsed = " + timeElapsedTime[i] << endl;
+        }
 
-    return 0;
+    }
+    return timeElapsedTime;
 }
