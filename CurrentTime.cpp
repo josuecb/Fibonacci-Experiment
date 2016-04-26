@@ -46,23 +46,3 @@ double CurrentTime::getCurrentTime() {
 double CurrentTime::formatSecondsAndMillisIntoTime() {
     return this->timeInSeconds + (this->millisecondsElapsed / 1000);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
