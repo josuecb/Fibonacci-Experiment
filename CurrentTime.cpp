@@ -35,7 +35,7 @@ double CurrentTime::getMilliseconds() {
 
 double CurrentTime::getTimeElapsed(CurrentTime startTime) {
 
-    std::cout  << std::to_string(startTime.getCurrentTime()) + ", " + std::to_string(this->currentTime) << std::endl;
+//    std::cout  << std::to_string(startTime.getCurrentTime()) + ", " + std::to_string(this->currentTime) << std::endl;
     return startTime.getCurrentTime() - this->currentTime;
 }
 
